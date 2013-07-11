@@ -20,11 +20,11 @@ type From struct {
 }
 
 type Field struct {
-	Schema    string
-	Table     string
-	Name      string
+	Schema     string
+	Table      string
+	Name       string
 	Expression string
-	Alias     string
+	Alias      string
 }
 
 type Grouping struct {
@@ -188,7 +188,7 @@ func (q *Query) FieldsString() string {
 				}
 				fieldStr = fieldStr + q.identfierQuote(field.Name)
 			} else {
-				fieldStr =  fieldStr + field.Expression
+				fieldStr = fieldStr + field.Expression
 			}
 			if field.Alias != `` {
 				fieldStr = fieldStr + " AS " + q.identfierQuote(field.Alias)

@@ -6,7 +6,7 @@ import (
 )
 
 type Criteria struct {
-	and bool
+	and         bool
 	expressions []interface{}
 }
 
@@ -20,7 +20,7 @@ func (c Criteria) String() string {
 		case string:
 			parts = append(parts, expression.(string))
 		case Criteria:
-			parts = append(parts, `(` + (expression.(Criteria)).String() + `)`)
+			parts = append(parts, `(`+(expression.(Criteria)).String()+`)`)
 		}
 	}
 

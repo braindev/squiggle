@@ -236,5 +236,60 @@ func Test_String(t *testing.T) {
 	if str != expected {
 		t.Errorf("String() returned `%s` expected `%s`", str, expected)
 	}
+}
 
+func Test_Where(t *testing.T) {
+	q1 := Select().Where(And("a = 1"))
+
+	if q1.where.expressions[0].(string) != "a = 1" {
+		t.Error("Where() did not create expected criteria")
+	}
+
+	q1.Where(And("b = 1"))
+
+	if q1.where.expressions[0].(string) != "b = 1" {
+		t.Error("Where() did not override previous criteria")
+	}
+}
+
+func Test_AndWhere(t *testing.T) {
+	q1 := Select().Where(And("a=1")).AndWhere(And("b=1"))
+	if !q1.where.and || q1.where.expressions[1].(Criteria).expressions[0].(string) != "b=1" {
+		t.Error("AndWhere() did not create the expected criteria")
+	}
+}
+
+func Test_OrWhere(t *testing.T) {
+	q1 := Select().Where(And("a=1")).OrWhere(And("b=1"))
+	if q1.where.and || q1.where.expressions[1].(Criteria).expressions[0].(string) != "b=1" {
+		t.Error("OrWhere() did not create the expected criteria")
+	}
+}
+
+func Test_Having(t *testing.T) {
+	q1 := Select().Having(And("a = 1"))
+
+	if q1.having.expressions[0].(string) != "a = 1" {
+		t.Error("Having() did not create expected criteria")
+	}
+
+	q1.Having(And("b = 1"))
+
+	if q1.having.expressions[0].(string) != "b = 1" {
+		t.Error("Having() did not override previous criteria")
+	}
+}
+
+func Test_AndHaving(t *testing.T) {
+	q1 := Select().Having(And("a=1")).AndHaving(And("b=1"))
+	if !q1.having.and || q1.having.expressions[1].(Criteria).expressions[0].(string) != "b=1" {
+		t.Error("AndHaving() did not create the expected criteria")
+	}
+}
+
+func Test_OrHaving(t *testing.T) {
+	q1 := Select().Having(And("a=1")).OrHaving(And("b=1"))
+	if q1.having.and || q1.having.expressions[1].(Criteria).expressions[0].(string) != "b=1" {
+		t.Error("OrHaving() did not create the expected criteria")
+	}
 }
