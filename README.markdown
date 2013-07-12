@@ -1,9 +1,11 @@
 # Squiggle - an SQL query builder for golang
 
-## Goals
+Have a program where it's awkward or impossible to compose an SQL query in sinlge place?  Tired of concatenating pieces of SQL manually?  Then Squiggle is for you!  Squiggle is not an ORM but a powerful light weight tool to build SQL queries piece by piece.  Squiggle draws inspiration from amazing projects like [Squel.js](http://hiddentao.github.io/squel/) and [Sequel](http://sequel.rubyforge.org).
 
-- Ease of use
-- Cover 80-90% of common use cases for SQL query building
+## Project Goals
+
+- Intuitive easy to use/read/remember DSL for query creation
+- Cover 100% of common use cases for SQL query building
 
 ## Example Use
 
@@ -24,13 +26,13 @@ func main() {
 
 ## API
 
-### `Select()` - creates a new query of type SELECT
+#### `Select()` - creates a new query of type SELECT
 
 ```go
 squiggle.Select()
 ```
 
-### `AddFrom(string/squiggle.From...)` - appends to the FROM clause of the query
+#### `AddFrom(string/squiggle.From...)` - appends to the FROM clause of the query
 
 ```go
 squiggle.Select().
@@ -40,7 +42,7 @@ squiggle.Select().
 // => "SELECT * FROM users, db1.table1 t1, foo"
 ```
 
-### `AddField(string/squiggle.Field...)` - appends to the field/expression portion of the query
+#### `AddField(string/squiggle.Field...)` - appends to the field/expression portion of the query
 
 ```go
 squiggle.Select().
