@@ -281,14 +281,14 @@ func Test_Having(t *testing.T) {
 }
 
 func Test_AndHaving(t *testing.T) {
-	q1 := Select().Having(And("a=1")).AndHaving(And("b=1"))
+	q1 := Select().Having("a=1").AndHaving("b=1")
 	if !q1.having.and || q1.having.expressions[1].(Criteria).expressions[0].(string) != "b=1" {
 		t.Error("AndHaving() did not create the expected criteria")
 	}
 }
 
 func Test_OrHaving(t *testing.T) {
-	q1 := Select().Having(And("a=1")).OrHaving(And("b=1"))
+	q1 := Select().Having("a=1").OrHaving("b=1")
 	if q1.having.and || q1.having.expressions[1].(Criteria).expressions[0].(string) != "b=1" {
 		t.Error("OrHaving() did not create the expected criteria")
 	}
